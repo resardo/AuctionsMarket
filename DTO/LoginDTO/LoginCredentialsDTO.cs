@@ -10,8 +10,8 @@ namespace DTO.UserDTO
     public class LoginCredentialsDTO
     {
         
-        public string Username { get; set; } = null!;
-        public string PasswordHash { get; set; } = null!;
+        public string Username { get; set; } 
+        public string PasswordHash { get; set; } 
 
     }
 }

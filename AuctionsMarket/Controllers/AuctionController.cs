@@ -27,8 +27,8 @@ namespace AuctionsMarket.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest();
 
-                var Auctions = _auctionDomain.GetAllAuctions();
-                return (Auctions != null) ? Ok(Auctions) : NotFound();
+                var auctions = _auctionDomain.GetAllAuctions();
+                return (auctions != null) ? Ok(auctions) : NotFound();
             }
             catch (Exception ex)
             {
@@ -116,6 +116,25 @@ namespace AuctionsMarket.Controllers
                 _auctionDomain.Remove(Id);
                 return Ok("update completed");
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpPut]
+        [Route("Close/{AuctionId}")]
+        public IActionResult CloseAuction([FromRoute] Guid AuctionId)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest();
+
+                 _auctionDomain.CloseAuction(AuctionId);
+                return Ok("Updated");
+            }
+
             catch (Exception ex)
             {
                 throw ex;

@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using DTO.AuctionDTO;
+using DTO.BidDTO;
 using DTO.LoginDTO;
 using DTO.RoleDTO;
 using DTO.UserDTO;
@@ -21,7 +23,8 @@ namespace Domain.Mappings
             CreateMap<LoginDTO, User>().ReverseMap();
             CreateMap<UserRoleDTO, UserRole>().ReverseMap();
             CreateMap<LoginCredentialsDTO, User>().ReverseMap();
-            
+            CreateMap<AuctionDTO, Auction>().ReverseMap();
+            CreateMap<BidDTO, Bid>().ReverseMap();
             CreateMap<RoleDTO1, Role>().ReverseMap();
 
         }

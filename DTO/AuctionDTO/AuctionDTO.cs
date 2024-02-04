@@ -14,8 +14,8 @@ namespace DTO.AuctionDTO
        
         public Guid UserId { get; set; }
 
-        
-        public string Title { get; set; }
+
+        public string Title { get; set; } 
 
         
         public string Description { get; set; }
@@ -28,5 +28,7 @@ namespace DTO.AuctionDTO
 
         
         public decimal StartPrice { get; set; }
+
+        public bool IsActive { get; set; } = null!;
     }
 }

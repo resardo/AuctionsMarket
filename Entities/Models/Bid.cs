@@ -27,7 +27,7 @@ namespace Entities.Models
 
         // Navigation properties
         [ForeignKey("AuctionId")]
-        public virtual Auction Auction { get; set; }
+        public virtual Auction Auction { get; set; } 
 
         [ForeignKey("UserId")]
         public virtual User User { get; set; }

@@ -9,5 +9,7 @@ namespace DAL.Contracts
 {
     public interface IAuctionRepository : IRepository<Auction, Guid>
     {
+        Auction Create(Auction auction);
+        IEnumerable<Auction> GetAuctionsBasedOnTimeRemaining();
     }
 }

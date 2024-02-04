@@ -17,6 +17,6 @@ namespace Entities.Models
         public string Name { get; set; }
 
         // Navigation property
-        public virtual ICollection<UserRole> UserRoles { get; set; }     
+        public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
     }
 }

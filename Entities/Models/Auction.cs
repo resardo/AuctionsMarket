@@ -32,10 +32,13 @@ namespace Entities.Models
         [Required]
         public decimal StartPrice { get; set; }
 
+        public decimal SoldPrice { get; set; }   
+
+        public bool IsActive { get; set; }  
         // Navigation properties
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
-        public virtual ICollection<Bid> Bids { get; set; }
+        public virtual ICollection<Bid> Bids { get; set; } = new List<Bid>();
     }
 
 }

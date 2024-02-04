@@ -16,6 +16,17 @@ namespace DAL.Concrete
         {
         }
 
-    
+        public Bid Create(Bid bid)
+        {
+            context.Add(bid);
+            PersistChangesToTrackedEntities();
+
+            return context.Add(bid).Entity;
+        }
+
+        public Bid GetHighestBid(Guid auctionId)
+        {
+            return context.Where(b => b.AuctionId == auctionId).OrderByDescending(b => b.Amount).FirstOrDefault();
+        }
     }
 }

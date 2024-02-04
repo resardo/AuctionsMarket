@@ -18,14 +18,14 @@ namespace Entities.Models
 
         [Required]
         [StringLength(100)]
-        public string PasswordHash { get; set; }
+        public string PasswordHash { get; set; } 
 
-        public decimal Wallet { get; set; } = 1000.00M;
+        public decimal Wallet { get; set; }
 
         // Navigation properties
-        public virtual ICollection<Auction> Auctions { get; set; }
-        public virtual ICollection<Bid> Bids { get; set; }
-        public virtual ICollection<UserRole> UserRoles { get; set; }
+        public virtual ICollection<Auction> Auctions { get; set; } = new List<Auction>();
+        public virtual ICollection<Bid> Bids { get; set; } = new List<Bid>();
+        public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
     }
 
 }

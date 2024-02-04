@@ -16,6 +16,7 @@ namespace DTO.UserDTO
         public string PasswordHash { get; set; }
 
         public decimal Wallet { get; set; } = 1000.00M;
+
         public List<Guid> RoleId { get; set; }
     }
 }

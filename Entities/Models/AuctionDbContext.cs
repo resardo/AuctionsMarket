@@ -68,15 +68,19 @@ namespace Entities.Models
 
             modelBuilder.Entity<Auction>()
                 .Property(a => a.StartPrice)
-                .HasColumnType("decimal(18, 2)"); // Adjust precision and scale as needed
+                .HasColumnType("decimal(18, 2)"); 
+
+            modelBuilder.Entity<Auction>()
+               .Property(a => a.SoldPrice)
+               .HasColumnType("decimal(18, 2)");
 
             modelBuilder.Entity<Bid>()
                 .Property(b => b.Amount)
-                .HasColumnType("decimal(18, 2)"); // Adjust precision and scale as needed
+                .HasColumnType("decimal(18, 2)"); 
 
             modelBuilder.Entity<User>()
                 .Property(u => u.Wallet)
-                .HasColumnType("decimal(18, 2)"); // Adjust precision and scale as needed
+                .HasColumnType("decimal(18, 2)"); 
         }
     }
 }

@@ -20,7 +20,7 @@ namespace AuctionsMarket.Controllers
 
         [HttpGet]
         [Route("getAllbids")]
-        public IActionResult GetAllbids()
+        public IActionResult GetAllBids()
         {
             try
             {
@@ -39,7 +39,7 @@ namespace AuctionsMarket.Controllers
 
         [HttpGet]
         [Route("{bidId}")]
-        public IActionResult GetbidById([FromRoute] Guid bidId)
+        public IActionResult GetBidById([FromRoute] Guid bidId)
         {
             try
             {
@@ -106,7 +106,7 @@ namespace AuctionsMarket.Controllers
 
         [HttpDelete]
         [Route("{Id}")]
-        public IActionResult Deletebid(Guid Id)
+        public IActionResult DeleteBid(Guid Id)
         {
             try
             {

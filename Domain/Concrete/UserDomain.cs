@@ -34,11 +34,12 @@ namespace Domain.Concrete
 
             User user = _mapper.Map<User>(User);
             user.UserId = Guid.NewGuid();
-            
+            user.Wallet = 1000.00M;
             foreach (var item in User.RoleId)
             {
 
                 UserRole x = new UserRole();
+                x.UserRoleId = Guid.NewGuid();
                 x.UserId = user.UserId;
                 x.RoleId = item;
                 user.UserRoles.Add(x);
