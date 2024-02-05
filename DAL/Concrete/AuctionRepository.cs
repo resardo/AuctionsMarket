@@ -1,6 +1,7 @@
 ﻿using DAL.Contracts;
 using Entities.Models;
-
+using Helpers.Methods;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Concrete
 {
@@ -21,8 +22,8 @@ namespace DAL.Concrete
 
         public IEnumerable<Auction> GetAuctionsBasedOnTimeRemaining()
         {
-            var currentTime = DateTime.UtcNow; 
-            return  context.Where(a => a.IsActive && a.EndTime > currentTime) 
+            var currentTime = HelperMethods.GetCurrentDate();
+            return context.Include(x => x.User).ThenInclude(x => x.Bids).Where(a => a.IsAvailable && a.EndTime > currentTime) 
                                  .OrderBy(a => a.EndTime) 
                                  .ToList();
         }

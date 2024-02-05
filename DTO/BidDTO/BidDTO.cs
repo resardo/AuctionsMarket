@@ -19,6 +19,5 @@ namespace DTO.BidDTO
 
         public DateTime Timestamp { get; set; }
 
-     
     }
 }

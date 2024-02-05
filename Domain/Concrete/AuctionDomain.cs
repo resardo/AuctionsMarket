@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DTO.AuctionDTO;
 using Entities.Models;
+using Helpers.Methods;
 
 namespace Domain.Concrete
 {
@@ -26,7 +27,7 @@ namespace Domain.Concrete
         public void CloseAuction(Guid auctionId)
         {
             var auction =  _auctionRepository.GetById(auctionId);
-            //if (auction == null || auction.EndTime > DateTime.UtcNow)
+            //if (auction == null || auction.EndTime > HelperMethods.GetCurrentDate())
             //{
             //    throw new Exception("Auction does not exist or has not yet ended.");
             //}
@@ -42,8 +43,8 @@ namespace Domain.Concrete
             SellerTransaction(auction, highestBid.Amount);
            
 
-            auction.SoldPrice = highestBid.Amount;
-            auction.IsActive = false;
+            auction.FinalPrice = highestBid.Amount;
+            auction.IsAvailable = false;
 
             _auctionRepository.Update(auction);
              
@@ -65,17 +66,16 @@ namespace Domain.Concrete
         public AuctionDTO Create(AuctionDTO auction)
         {
             auction.AuctionId = Guid.NewGuid();
-            auction.IsActive = true;
-            //auction.IsActive = true;
+            auction.IsAvailable = true;
             var bid = _mapper.Map<Auction>(auction);
             var auctionEntity = _auctionRepository.Create(bid);
             return _mapper.Map<AuctionDTO>(auctionEntity);
         }
 
-        public IEnumerable<AuctionDTO> GetAllAuctions()
+        public IEnumerable<AuctionResponseDTO> GetAllAuctions()
         {
             IEnumerable<Auction> auction = _auctionRepository.GetAuctionsBasedOnTimeRemaining();
-            var test = _mapper.Map<IEnumerable<AuctionDTO>>(auction);
+            var test = _mapper.Map<IEnumerable<AuctionResponseDTO>>(auction);
             return test;
         }
 

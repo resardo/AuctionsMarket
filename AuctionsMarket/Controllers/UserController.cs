@@ -63,7 +63,7 @@ namespace HumanResourceProject.Controllers
 
         [HttpPost]
         [Route("Register")]
-        public IActionResult Register(UserDTO request)
+        public IActionResult Register(User1DTO request)
         {
             try
             {
@@ -87,7 +87,7 @@ namespace HumanResourceProject.Controllers
         [HttpPut]
         [Route("Update")]
 
-        public IActionResult Update([FromBody] UserDTO User)
+        public IActionResult Update([FromBody] User1DTO User)
         {
             try
             {

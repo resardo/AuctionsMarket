@@ -11,6 +11,7 @@ namespace Domain.Contracts
     {
         IList<BidDTO> GetAllBids();
         BidDTO GetBidById(Guid id);
+        BidDTO GetHighesBidById(Guid id);
         BidDTO Create(BidDTO User);
         void Update(BidDTO User);
 

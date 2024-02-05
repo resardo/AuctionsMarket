@@ -18,7 +18,15 @@ namespace Entities.Models
 
         [Required]
         [StringLength(100)]
-        public string PasswordHash { get; set; } 
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string LastName { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string Password { get; set; } 
 
         public decimal Wallet { get; set; }
 

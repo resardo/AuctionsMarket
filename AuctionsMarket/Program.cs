@@ -5,6 +5,7 @@ using Lamar.Microsoft.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -57,6 +58,11 @@ builder.Host.UseLamar((context, registry) =>
     // add the controllers
 });
 
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File("logs/transactionLogs-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
 var app = builder.Build();
 

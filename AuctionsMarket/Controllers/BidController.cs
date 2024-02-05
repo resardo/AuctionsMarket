@@ -57,6 +57,25 @@ namespace AuctionsMarket.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("HighestBid/{auctionId}")]
+        public IActionResult GetHighestBidById([FromRoute] Guid auctionId)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest();
+
+                var bid = _bidDomain.GetHighesBidById(auctionId);
+                return (bid != null) ? Ok(bid) : NotFound();
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
         [HttpPost]

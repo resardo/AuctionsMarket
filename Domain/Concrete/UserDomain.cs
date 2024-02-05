@@ -16,20 +16,20 @@ namespace Domain.Concrete
         }
         private IUserRepository UserRepository => _unitOfWork.GetRepository<IUserRepository>();
 
-        public IList<UserDTO> GetAllUsers()
+        public IList<User1DTO> GetAllUsers()
         {
             IEnumerable<User> user = UserRepository.GetAll();
-            var test = _mapper.Map<IList<UserDTO>>(user);
+            var test = _mapper.Map<IList<User1DTO>>(user);
             return test;
         }
 
-        public UserDTO GetUserById(Guid id)
+        public User1DTO GetUserById(Guid id)
         {
             User user = UserRepository.GetById(id);
-            return _mapper.Map<UserDTO>(user);
+            return _mapper.Map<User1DTO>(user);
         }
 
-        public UserDTO Create(UserDTO User)
+        public User1DTO Create(User1DTO User)
         {
 
             User user = _mapper.Map<User>(User);
@@ -46,10 +46,10 @@ namespace Domain.Concrete
             }
 
             UserRepository.Create(user);
-            return _mapper.Map<UserDTO>(user);
+            return _mapper.Map<User1DTO>(user);
         }
 
-        public void Update(UserDTO User)
+        public void Update(User1DTO User)
         {
             var updateproject = _mapper.Map<User>(User);
             UserRepository.Update(updateproject);

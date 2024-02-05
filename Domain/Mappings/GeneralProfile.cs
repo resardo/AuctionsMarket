@@ -18,12 +18,13 @@ namespace Domain.Mappings
         #region User
         public GeneralProfile()
         {
-           CreateMap<User, UserDTO>().ReverseMap();
+           CreateMap<User, User1DTO>().ReverseMap();
          
             CreateMap<LoginDTO, User>().ReverseMap();
             CreateMap<UserRoleDTO, UserRole>().ReverseMap();
             CreateMap<LoginCredentialsDTO, User>().ReverseMap();
             CreateMap<AuctionDTO, Auction>().ReverseMap();
+            CreateMap<AuctionResponseDTO, Auction>().ReverseMap();
             CreateMap<BidDTO, Bid>().ReverseMap();
             CreateMap<RoleDTO1, Role>().ReverseMap();
 

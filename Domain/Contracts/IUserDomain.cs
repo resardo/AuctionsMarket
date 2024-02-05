@@ -9,10 +9,10 @@ namespace Domain.Contracts
 {
     public interface IUserDomain
     {
-        IList<UserDTO> GetAllUsers();
-        UserDTO GetUserById(Guid id);
-        UserDTO Create(UserDTO User);
-        void Update(UserDTO User);
+        IList<User1DTO> GetAllUsers();
+        User1DTO GetUserById(Guid id);
+        User1DTO Create(User1DTO User);
+        void Update(User1DTO User);
 
         void Remove(Guid id);
     }

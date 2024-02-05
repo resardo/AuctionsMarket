@@ -32,9 +32,9 @@ namespace Entities.Models
         [Required]
         public decimal StartPrice { get; set; }
 
-        public decimal SoldPrice { get; set; }   
+        public decimal FinalPrice { get; set; }   
 
-        public bool IsActive { get; set; }  
+        public bool IsAvailable { get; set; }  
         // Navigation properties
         [ForeignKey("UserId")]
         public virtual User User { get; set; }

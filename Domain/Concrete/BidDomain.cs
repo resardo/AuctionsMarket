@@ -72,6 +72,12 @@ namespace Domain.Concrete
             return _mapper.Map<BidDTO>(bid);
         }
 
+        public BidDTO GetHighesBidById(Guid id)
+        {
+            Bid bid = _bidRepository.GetHighestBid(id);
+            return _mapper.Map<BidDTO>(bid);
+        }
+
         public void Remove(Guid id)
         {
             _bidRepository.Remove(id);

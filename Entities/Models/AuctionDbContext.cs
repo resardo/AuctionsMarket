@@ -71,7 +71,7 @@ namespace Entities.Models
                 .HasColumnType("decimal(18, 2)"); 
 
             modelBuilder.Entity<Auction>()
-               .Property(a => a.SoldPrice)
+               .Property(a => a.FinalPrice)
                .HasColumnType("decimal(18, 2)");
 
             modelBuilder.Entity<Bid>()

@@ -14,7 +14,7 @@ namespace DAL.Concrete
 
         public User Generate(User User)
         {
-            var login = context.Include(x => x.UserRoles).ThenInclude(x => x.Role).Where(a => a.Username == User.Username && a.PasswordHash == User.PasswordHash).FirstOrDefault();
+            var login = context.Include(x => x.UserRoles).ThenInclude(x => x.Role).Where(a => a.Username == User.Username && a.Password == User.Password).FirstOrDefault();
             return login ?? null;
         }
     }
