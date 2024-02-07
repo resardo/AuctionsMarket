@@ -35,7 +35,13 @@ namespace DAL.Concrete
             return user;
         }
 
-
+        public User GetByActionId(Guid id)
+        {
+            var user = context
+                       .Include(u => u.Auctions) 
+                       .FirstOrDefault(u => u.Auctions.Any(a => a.AuctionId == id)); 
+            return user;
+        }
         public void Remove(Guid id)
         {
             User emp = context.Find(id);

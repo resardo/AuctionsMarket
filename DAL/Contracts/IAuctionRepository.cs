@@ -10,6 +10,10 @@ namespace DAL.Contracts
     public interface IAuctionRepository : IRepository<Auction, Guid>
     {
         Auction Create(Auction auction);
+        void Update(Auction auction);
+        void Remove(Guid id);
         IEnumerable<Auction> GetAuctionsBasedOnTimeRemaining();
+        IEnumerable<Auction> GetAuctionsToClose();
+
     }
 }

@@ -27,7 +27,7 @@ namespace Domain.Concrete
         public BidDTO Create(BidDTO bid)
         {
             var user = _userRepository.GetById(bid.UserId);
-            var auction =  _auctionRepository.GetById(bid.AuctionId);
+            var auction = _auctionRepository.GetById(bid.AuctionId);
             
 
             if (auction == null || user == null)
@@ -38,6 +38,11 @@ namespace Domain.Concrete
             if (auction.EndTime <= DateTime.UtcNow)
             {
                 throw new Exception("Auction has already ended.");
+            }
+
+            if (auction.StartPrice >= bid.Amount)
+            {
+                throw new Exception("Bid must be higher than start price");
             }
 
             var highestBid =  _bidRepository.GetHighestBid(bid.AuctionId);

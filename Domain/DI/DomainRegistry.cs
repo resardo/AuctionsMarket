@@ -18,6 +18,7 @@ namespace Domain.DI
             For<IBidDomain>().Use<BidDomain>();
             For<ILoginDomain>().Use<LoginDomain>();
             For<IRoleDomain>().Use<RoleDomain>();
+           
 
             AddRepositoryRegistries();
             AddHttpContextRegistries();

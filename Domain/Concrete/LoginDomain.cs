@@ -53,9 +53,10 @@ namespace Domain.Concrete
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier,dto.Username),
+                new Claim(ClaimTypes.Name,dto.Username),
                 new Claim(ClaimTypes.Role,role.Name),
-                new Claim(ClaimTypes.SerialNumber, (dto.UserId).ToString())
+                new Claim(ClaimTypes.SerialNumber, (dto.UserId).ToString()),
+                new Claim(ClaimTypes.GroupSid,(role.RoleId).ToString())
 
             };
 

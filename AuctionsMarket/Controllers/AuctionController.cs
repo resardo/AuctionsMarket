@@ -104,8 +104,8 @@ namespace AuctionsMarket.Controllers
             }
         }
 
-        [HttpDelete]
-        [Route("{Id}")]
+        [HttpPut]
+        [Route("Delete/{Id}")]
         public IActionResult DeleteAuction(Guid Id)
         {
             try

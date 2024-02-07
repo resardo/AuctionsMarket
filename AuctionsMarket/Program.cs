@@ -49,6 +49,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll", b => b.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
 });
 
+builder.Services.AddHostedService<AuctionClosingBackgroundService>();
+
 // use Lamar as DI.
 builder.Host.UseLamar((context, registry) =>
 {
@@ -64,6 +66,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.File("logs/transactionLogs-.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
+builder.Host.UseSerilog();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -73,6 +76,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseCors("AllowAll");
+
+app.UseSerilogRequestLogging();
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

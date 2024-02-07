@@ -10,6 +10,7 @@ namespace Domain.Contracts
     public interface IAuctionDomain
     {
         IEnumerable<AuctionResponseDTO> GetAllAuctions();
+        IEnumerable<AuctionResponseDTO> GetAuctionsToClose();
         AuctionDTO GetAuctionById(Guid id);
         AuctionDTO Create(AuctionDTO auction);
         void Update(AuctionDTO auction);

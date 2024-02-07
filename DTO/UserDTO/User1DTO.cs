@@ -8,8 +8,8 @@ namespace DTO.UserDTO
 {
     public class User1DTO
     {
-       
-        public Guid UserId { get; set; }
+
+        public Guid? UserId { get; set; } 
 
         public string Username { get; set; }
 
@@ -21,6 +21,6 @@ namespace DTO.UserDTO
 
         public decimal Wallet { get; set; } = 1000.00M;
 
-        public List<Guid> RoleId { get; set; }
+        public List<Guid>? RoleId { get; set; }
     }
 }

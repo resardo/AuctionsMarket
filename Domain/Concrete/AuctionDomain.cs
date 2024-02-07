@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using DTO.AuctionDTO;
 using Entities.Models;
 using Helpers.Methods;
+using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace Domain.Concrete
 {
@@ -26,41 +28,67 @@ namespace Domain.Concrete
 
         public void CloseAuction(Guid auctionId)
         {
-            var auction =  _auctionRepository.GetById(auctionId);
-            //if (auction == null || auction.EndTime > HelperMethods.GetCurrentDate())
-            //{
-            //    throw new Exception("Auction does not exist or has not yet ended.");
-            //}
+            var auction = _auctionRepository.GetById(auctionId);
+            if (auction == null || auction.EndTime > HelperMethods.GetCurrentDate())
+            {
+                throw new Exception("Auction does not exist or has not yet ended.");
+            }
 
             var highestBid = _bidRepository.GetHighestBid(auctionId);
             if (highestBid == null)
             {
-                // No bids were placed, no wallet updates needed
+                auction.FinalPrice = auction.StartPrice;
+                auction.IsAvailable = false;
+                _auctionRepository.Update(auction);
                 return;
             }
 
-            BuyerTransaction(highestBid);
-            SellerTransaction(auction, highestBid.Amount);
-           
+            
+            bool transactionSuccess = BuyerTransaction(highestBid);
+            if (transactionSuccess)
+            {
+                SellerTransaction(auction, highestBid.Amount);
 
-            auction.FinalPrice = highestBid.Amount;
-            auction.IsAvailable = false;
-
-            _auctionRepository.Update(auction);
-             
+                auction.FinalPrice = highestBid.Amount;
+                auction.IsAvailable = false;
+                _auctionRepository.Update(auction);
+            }
+            else
+            {
+                HandleFailedTransaction(auction, highestBid);
+            }
         }
 
-        public void BuyerTransaction(Bid highestBid)
+        private bool BuyerTransaction(Bid highestBid)
         {
             var buyer = _userRepository.GetById(highestBid.UserId);
-            buyer.Wallet -= highestBid.Amount;
-            _userRepository.Update(buyer);
+            if (buyer.Wallet >= highestBid.Amount)
+            {
+                buyer.Wallet -= highestBid.Amount;
+                _userRepository.Update(buyer);
+                Log.Information("Buyer Transaction => {@buyer.Wallet}", buyer.Wallet);
+                return true; 
+            }
+            else
+            {
+                
+                Log.Information("Buyer does not have enough funds. Transaction failed for {@buyer.UserName}", buyer.Username);
+                return false; 
+            }
         }
-        public void SellerTransaction(Auction auction,decimal highestBid)
+
+        private void SellerTransaction(Auction auction, decimal highestBid)
         {
             var seller = _userRepository.GetById(auction.UserId);
             seller.Wallet += highestBid;
             _userRepository.Update(seller);
+        }
+
+        private void HandleFailedTransaction(Auction auction, Bid highestBid)
+        {
+            auction.IsAvailable = false;
+            _auctionRepository.Update(auction);
+            Log.Information("Transaction failed for Auction {@auction} with highest bid {@highestBid}", auction, highestBid);
         }
 
         public AuctionDTO Create(AuctionDTO auction)
@@ -87,7 +115,9 @@ namespace Domain.Concrete
 
         public void Remove(Guid id)
         {
-            _auctionRepository.Remove(id);
+            Auction auction = _auctionRepository.GetById(id);
+            auction.IsAvailable = false;
+            _auctionRepository.Update(auction);
         }
 
         public void Update(AuctionDTO auction)
@@ -96,5 +126,11 @@ namespace Domain.Concrete
             _auctionRepository.Update(auctionUpdate);
         }
 
+        public IEnumerable<AuctionResponseDTO> GetAuctionsToClose()
+        {
+            IEnumerable<Auction> auction = _auctionRepository.GetAuctionsToClose();
+            var test = _mapper.Map<IEnumerable<AuctionResponseDTO>>(auction);
+            return test;
+        }
     }
 }

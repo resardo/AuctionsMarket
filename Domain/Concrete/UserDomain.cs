@@ -35,16 +35,29 @@ namespace Domain.Concrete
             User user = _mapper.Map<User>(User);
             user.UserId = Guid.NewGuid();
             user.Wallet = 1000.00M;
-            foreach (var item in User.RoleId)
+            if (User.RoleId != null && User.RoleId.Count > 0 )
             {
+                //if is role based app
+                foreach (var item in User.RoleId)
+                {
 
+                    UserRole x = new UserRole();
+                    x.UserRoleId = Guid.NewGuid();
+                    x.UserId = user.UserId;
+                    x.RoleId = item;
+                    user.UserRoles.Add(x);
+                }
+            }
+
+            else
+            {
+                //deafult role user
                 UserRole x = new UserRole();
                 x.UserRoleId = Guid.NewGuid();
                 x.UserId = user.UserId;
-                x.RoleId = item;
-                user.UserRoles.Add(x);
+                x.RoleId = Guid.Parse("bf5b1e8b-272b-4121-84eb-a9b69b786778");
+                
             }
-
             UserRepository.Create(user);
             return _mapper.Map<User1DTO>(user);
         }

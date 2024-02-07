@@ -10,6 +10,7 @@ namespace DAL.Contracts
     public interface IUserRepository : IRepository<User, Guid>
     {
         User GetById(Guid id);
+        User GetByActionId(Guid id);
         void Create(User User);
         void Update(User User);
 
