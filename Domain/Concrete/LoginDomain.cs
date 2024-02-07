@@ -31,7 +31,7 @@ namespace Domain.Concrete
 
             var data = _mapper.Map<LoginCredentialsDTO, User>(dto);
             var login = loginRepository.Generate(data);
-            auth =  (login != null) ?  _mapper.Map<User, LoginDTO>(login) : throw new Exception("Kredenciale te gabuara");
+            auth =  (login != null) ?  _mapper.Map<User, LoginDTO>(login) : throw new HttpRequestException("wrong credentials");
             return GenerateParamsForToken();
         }
 

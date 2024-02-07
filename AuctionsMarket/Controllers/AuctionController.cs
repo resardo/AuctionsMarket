@@ -22,11 +22,13 @@ namespace AuctionsMarket.Controllers
         [Route("getAllAuctions")]
         public IActionResult GetAllAuctions()
         {
+            
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest();
 
+                
                 var auctions = _auctionDomain.GetAllAuctions();
                 return (auctions != null) ? Ok(auctions) : NotFound();
             }

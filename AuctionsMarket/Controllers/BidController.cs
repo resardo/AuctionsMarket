@@ -82,8 +82,7 @@ namespace AuctionsMarket.Controllers
         [Route("Register")]
         public IActionResult Register(BidDTO request)
         {
-            try
-            {
+            
                 if (!ModelState.IsValid)
                     return BadRequest();
 
@@ -92,12 +91,7 @@ namespace AuctionsMarket.Controllers
                     _bidDomain.Create(request);
                     return Ok(request);
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
+            
         }
 
 

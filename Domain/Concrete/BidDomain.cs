@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using AuctionsMarket.Exceptions;
+using AutoMapper;
 using DAL.Contracts;
 using DAL.UoW;
 using Domain.Contracts;
@@ -32,29 +33,29 @@ namespace Domain.Concrete
 
             if (auction == null || user == null)
             {
-                throw new Exception("Auction or User does not exist.");
+                throw new BidException("Auction or User does not exist.");
             }
 
             if (auction.EndTime <= DateTime.UtcNow)
             {
-                throw new Exception("Auction has already ended.");
+                throw new BidException("Auction has already ended.");
             }
 
             if (auction.StartPrice >= bid.Amount)
             {
-                throw new Exception("Bid must be higher than start price");
+                throw new BidException("Bid must be higher than start price");
             }
 
             var highestBid =  _bidRepository.GetHighestBid(bid.AuctionId);
 
             if (highestBid != null && bid.Amount <= highestBid.Amount)
             {
-                throw new Exception("Bid must be higher than the current highest bid.");
+                throw new BidException("Bid must be higher than the current highest bid.");
             }
 
             if (user.Wallet < bid.Amount)
             {
-                throw new Exception("Insufficient funds to place bid.");
+                throw new BidException("Insufficient funds to place bid.");
             }
 
             bid.BidId = Guid.NewGuid();

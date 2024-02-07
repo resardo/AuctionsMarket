@@ -14,6 +14,7 @@ using Entities.Models;
 using Helpers.Methods;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using AuctionsMarket.Exceptions;
 
 namespace Domain.Concrete
 {
@@ -31,7 +32,7 @@ namespace Domain.Concrete
             var auction = _auctionRepository.GetById(auctionId);
             if (auction == null || auction.EndTime > HelperMethods.GetCurrentDate())
             {
-                throw new Exception("Auction does not exist or has not yet ended.");
+                throw new TransactionException("Auction does not exist or has not yet ended.");
             }
 
             var highestBid = _bidRepository.GetHighestBid(auctionId);

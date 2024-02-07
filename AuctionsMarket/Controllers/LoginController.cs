@@ -28,18 +28,13 @@ namespace HumanResourceProject.Controllers
         [Route("loginAuthentication")]
         public IActionResult Authenticate([FromBody] LoginCredentialsDTO login)
         {
-            try
-            {
+            
                 if (!ModelState.IsValid)
                     return BadRequest(login);
                 
                 var auth = _loginDomain.AuthUsers(login);
                 return Ok(auth);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex);
-            }
+            
         }
 
     }
