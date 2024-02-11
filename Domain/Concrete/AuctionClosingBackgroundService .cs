@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Domain.Contracts; // Import the namespace where IAuctionDomain is located
+using Domain.Contracts; 
 
 public class AuctionClosingBackgroundService : BackgroundService
 {
@@ -19,7 +19,7 @@ public class AuctionClosingBackgroundService : BackgroundService
         while (!stoppingToken.IsCancellationRequested)
         {
             await CloseEndedAuctions();
-            await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken); // Adjust the frequency as needed
+            await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken); 
         }
     }
 
@@ -29,7 +29,7 @@ public class AuctionClosingBackgroundService : BackgroundService
         {
             var auctionDomain = scope.ServiceProvider.GetRequiredService<IAuctionDomain>();
 
-            var auctionsToClose = auctionDomain.GetAuctionsToClose(); // You need to implement this method
+            var auctionsToClose = auctionDomain.GetAuctionsToClose(); 
 
             foreach (var auctionId in auctionsToClose)
             {
@@ -39,7 +39,6 @@ public class AuctionClosingBackgroundService : BackgroundService
                 }
                 catch (Exception ex)
                 {
-                    // Log exception or handle it as needed
                 }
             }
         }
